@@ -140,6 +140,11 @@ export default function AttentionFocusWrapper({ intervalMs = 1000, onTimerStop, 
             const lvl = total > 0 ? Math.round((hits / total) * 100) : 0;
             setFocusLevel(lvl);
             focusLevelsRef.current.push(lvl);
+            // Update rolling average live
+            const arr = focusLevelsRef.current;
+            const sum = arr.reduce((acc, val) => acc + val, 0);
+            const avg = arr.length > 0 ? Math.round(sum / arr.length) : 0;
+            setAverageFocusLevel(avg);
             // reset counters
             hitsRef.current = 0;
             totalRef.current = 0;
@@ -186,31 +191,31 @@ export default function AttentionFocusWrapper({ intervalMs = 1000, onTimerStop, 
     else renderedChild = children;
 
     return (
-        <div className="grid grid-cols-12 gap-6 p-4">
+        <div className="grid grid-cols-12 gap-6 p-4 rounded-2xl border border-white/10 bg-white/5 shadow-xl backdrop-blur-sm text-white">
             {/* Main content: child component */}
-            <div className="col-span-8 flex items-center justify-center">
+            <div className="col-span-12 lg:col-span-8 flex items-center justify-center">
                 {renderedChild}
             </div>
 
             {/* Sidebar: preview and controls */}
-            <div className="col-span-4 flex flex-col space-y-4">
+            <div className="col-span-12 lg:col-span-4 flex flex-col space-y-4">
                 {/* Preview */}
-                <div className="relative w-full aspect-video bg-gray-200 rounded-lg overflow-hidden">
+                <div className="relative w-full aspect-video rounded-xl border border-white/10 bg-slate-900/40 overflow-hidden">
                     <div ref={containerRef} className="w-full h-full relative" />
                 </div>
 
                 {/* Controls & Timer */}
-                <div className="space-y-2">
-                    {isRunning && <span className="text-green-600 font-medium">Monitoring…</span>}
-                    <span className="text-gray-700">Elapsed: {elapsedTime}s</span>
+                <div className="space-y-3">
+                    {isRunning && <span className="text-emerald-400 font-medium">Monitoring…</span>}
+                    <span className="text-slate-300">Elapsed: {elapsedTime}s</span>
                     <div className="grid grid-cols-2 gap-2">
-                        <div className="p-2 bg-white rounded shadow text-center">
-                            <p className="text-xs text-gray-500">Current Focus</p>
-                            <p className="font-bold text-blue-600">{focusLevel}%</p>
+                        <div className="p-3 rounded-lg border border-white/10 bg-white/5 text-center">
+                            <p className="text-xs text-slate-300">Current Focus</p>
+                            <p className="font-bold text-blue-300">{focusLevel}%</p>
                         </div>
-                        <div className="p-2 bg-white rounded shadow text-center">
-                            <p className="text-xs text-gray-500">Average Focus</p>
-                            <p className="font-bold text-purple-600">{averageFocusLevel}%</p>
+                        <div className="p-3 rounded-lg border border-white/10 bg-white/5 text-center">
+                            <p className="text-xs text-slate-300">Average Focus</p>
+                            <p className="font-bold text-purple-300">{averageFocusLevel}%</p>
                         </div>
                     </div>
                     {/* <div className="flex space-x-2">

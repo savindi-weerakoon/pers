@@ -53,7 +53,7 @@ export default function Stepper({ children, labels = [], onFinish }) {
                     disabled={current === 0}
                     className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
                 >
-                    Previous
+                    {current < total - 1 ? 'Previous' : 'Start Over'}
                 </button>
                 <button
                     onClick={goNext}

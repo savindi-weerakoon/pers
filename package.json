@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase": "^12.3.0",
+    "firebaseui": "^6.1.0",
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-firebaseui": "^6.0.0",
     "webgazer": "^3.3.0"
   },
   "devDependencies": {
