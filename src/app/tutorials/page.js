@@ -528,7 +528,7 @@ export default function TutorialsPage() {
                     </div>
 
                     <div class="courses-grid">
-                        <a href="http://localhost:3000/tutorial" class="course-tag">
+                        <a href="http://localhost:3000/tutorial" class="course-card">
                             <div class="course-thumbnail">
                                 <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=225&fit=crop" alt="Adaptive UI Development">
                                 <div class="course-progress">
@@ -554,13 +554,13 @@ export default function TutorialsPage() {
                                     <div class="course-rating">
                                         <span class="stars">⭐⭐⭐⭐⭐</span>
                                         <span>4.8</span>
-                    </div>
+                                    </div>
                                     <button class="course-action">Start Course</button>
-                        </div>
-                        </div>
-                    </a>
+                                </div>
+                            </div>
+                        </a>
 
-                        <a href="http://localhost:3000/tutorial" class="course-tag">
+                        <a href="http://localhost:3000/tutorial" class="course-card">
                             <div class="course-thumbnail">
                                 <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=225&fit=crop" alt="Cognitive Load Optimization">
                                 <div class="course-progress">
@@ -592,7 +592,7 @@ export default function TutorialsPage() {
                             </div>
                         </a>
                         
-                        <a href="http://localhost:3000/tutorial" class="course-tag">
+                        <a href="http://localhost:3000/tutorial" class="course-card">
                             <div class="course-thumbnail">
                                 <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=225&fit=crop" alt="Eye-Tracking Integration">
                                 <div class="course-progress">
@@ -621,10 +621,10 @@ export default function TutorialsPage() {
                                     </div>
                                     <button class="course-action completed">Completed</button>
                                 </div>
+                            </div>
                         </a>
-                    </div>
 
-                        <a href="http://localhost:3000/tutorial" class="course-tag">
+                        <a href="http://localhost:3000/tutorial" class="course-card">
                             <div class="course-thumbnail">
                                 <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=225&fit=crop" alt="Personalization Algorithms">
                                 <div class="course-progress">
