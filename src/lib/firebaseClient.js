@@ -1,7 +1,6 @@
 // Firebase client initialization helper
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import * as firebaseui from 'firebaseui';
 
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -37,21 +36,35 @@ export function getFirebaseAuth() {
 }
 
 export function getAuthUI() {
+	// Only initialize on client side
+	if (typeof window === 'undefined') {
+		return null;
+	}
+	
 	if (!authUI) {
 		const auth = getFirebaseAuth();
 		
-		// Check if there's an existing instance and delete it
-		const existingUI = firebaseui.auth.AuthUI.getInstance();
-		if (existingUI) {
-			existingUI.delete();
-		}
-		
-		authUI = new firebaseui.auth.AuthUI(auth);
+		// Dynamically import firebaseui to avoid SSR issues
+		import('firebaseui').then((firebaseui) => {
+			// Check if there's an existing instance and delete it
+			const existingUI = firebaseui.auth.AuthUI.getInstance();
+			if (existingUI) {
+				existingUI.delete();
+			}
+			
+			authUI = new firebaseui.auth.AuthUI(auth);
+		}).catch((error) => {
+			console.error('Error loading firebaseui:', error);
+		});
 	}
 	return authUI;
 }
 
 export function resetAuthUI() {
+	if (typeof window === 'undefined') {
+		return;
+	}
+	
 	if (authUI) {
 		try {
 			authUI.delete();
