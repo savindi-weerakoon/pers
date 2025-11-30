@@ -24,9 +24,11 @@ export default function Page() {
         const allScores = {
             digitSpanScore,
             cognitiveLoadScore,
-            avgFocusLevel
+            // use the measured value passed in, not the stale state variable
+            avgFocusLevel: averageFocusLevel
         }
-        setAverageFocusLevel(avgFocusLevel)
+        // update state with the actual measured average focus
+        setAverageFocusLevel(averageFocusLevel)
         setScores(allScores);
 
         // Store scores in localStorage for later use

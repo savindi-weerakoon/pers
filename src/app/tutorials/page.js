@@ -794,7 +794,7 @@ export default function TutorialsPage() {
                             description="Would you like to try our personalized learning platform that adapts to your cognitive profile?"
                 onConfirm={() => {
                                 callPersonaliser();
-                                isOpen(false);
+                                setIsOpen(false);
                 }}
                             onCancel={() => onCancelInitialPersonalization()}
             />
