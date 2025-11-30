@@ -20,6 +20,7 @@ export default function TutorialsPage() {
         cognitiveLoadScore: 60,
         averageFocusLevel: 50
     });
+    const [showPersonalized, setShowPersonalized] = useState(false);
 
     const onCancelInitialPersonalization = () => {
         setIsOpen(false);
@@ -34,13 +35,21 @@ export default function TutorialsPage() {
         spec,
         personalize,
         reset
-    } = usePersonalize();
+    } = usePersonalize({ pageName: 'tutorial' });
 
     useEffect(() => {
         setTimeout(() => {
             setIsOpen(true);
         }, 2000);
     }, []);
+
+    useEffect(() => {
+        if (personalizedHtml) {
+            setShowPersonalized(true);
+        } else {
+            setShowPersonalized(false);
+        }
+    }, [personalizedHtml]);
 
     // Read scores from query string
     useEffect(() => {
@@ -206,6 +215,11 @@ export default function TutorialsPage() {
                     </ul>
                     </section>
 
+                    
+                    <section class="section">
+                        <a style="text-decoration: underline; color: blue;" href="#">Download learning pack (slides + starter + completed)</a>
+                    </section>
+
                     <footer>
                     © 2025 Simple LMS — subtle colours for focus without distraction.
                     </footer>
@@ -258,6 +272,12 @@ export default function TutorialsPage() {
                 <div>
                     <div className="p-4 flex justify-end gap-2">
                         <button
+                            onClick={() => setShowPersonalized(!showPersonalized)}
+                            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+                        >
+                            {showPersonalized ? 'Show Raw HTML' : 'Show Personalized'}
+                        </button>
+                        <button
                             onClick={() => setRetryDialogOpen(true)}
                             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                         >
@@ -265,7 +285,11 @@ export default function TutorialsPage() {
                         </button>
                         <SignOutButton className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition" />
                     </div>
-                    <div dangerouslySetInnerHTML={{ __html: personalizedHtml }} />
+                    {showPersonalized ? (
+                        <div dangerouslySetInnerHTML={{ __html: personalizedHtml }} />
+                    ) : (
+                        <div dangerouslySetInnerHTML={{ __html: getEntireUIAsHTML() }} />
+                    )}
 
                     <ConfirmationDialog
                         open={retryDialogOpen}
@@ -339,9 +363,22 @@ export default function TutorialsPage() {
                             >
                                 Retry Personalization
                             </button>}
+                            {personalizedHtml && (
+                                <button
+                                    onClick={() => setShowPersonalized(!showPersonalized)}
+                                    className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+                                >
+                                    {showPersonalized ? 'Show Raw HTML' : 'Show Personalized'}
+                                </button>
+                            )}
                             <SignOutButton className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition" />
+
                         </div>
-                        <div className="flex-1" dangerouslySetInnerHTML={{ __html: getEntireUIAsHTML() }} />
+                        {showPersonalized ? (
+                            <div dangerouslySetInnerHTML={{ __html: personalizedHtml }} />
+                        ) : (
+                            <div className="flex-1" dangerouslySetInnerHTML={{ __html: getEntireUIAsHTML() }} />
+                        )}
 
                         <ConfirmationDialog
                             open={isOpen}

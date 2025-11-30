@@ -32,6 +32,8 @@ export default function AuthProvider({ children }) {
         try {
           if (typeof window !== 'undefined') {
             localStorage.removeItem('assessment:scores');
+            localStorage.removeItem('personalizedHtml_tutorials');
+            localStorage.removeItem('personalizedHtml_tutorial');
           }
         } catch (error) {
           console.error('Failed to clear scores from localStorage:', error);

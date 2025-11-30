@@ -100,7 +100,7 @@ export default function TutorialsPage() {
         personalizedHtml,
         personalize,
         reset
-    } = usePersonalize();
+    } = usePersonalize({ pageName: 'tutorials' });
 
     useEffect(() => {
         setTimeout(() => {
